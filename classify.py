@@ -125,8 +125,7 @@ def main(argv):
                                     print([bb['x'],bb['y']])
                                     point = point + 1
                             print("Marks =", point)
-                            break
-
+                            continue
                 next_frame = now() + 100
         finally:
             if (runner):
