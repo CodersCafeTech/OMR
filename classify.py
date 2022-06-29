@@ -113,7 +113,7 @@ def main(argv):
                     if (y=="Y"):
                         if "bounding_boxes" in res["result"].keys():
                                 for bb in res["result"]["bounding_boxes"]:
-                                    if ([bb['x'],[bb['y']]] in answer_key):
+                                    if ([bb['x'],bb['y']] in answer_key):
                                         point = point + 1
                                 print("Marks =", point)
 
