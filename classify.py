@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-import device_patches       # Device specific patches for Jetson Nano (needs to be before importing cv2)
+#!/usr/bin/env pythons
 
 import cv2
 import os
@@ -103,7 +101,7 @@ def main(argv):
                     time.sleep((next_frame - now()) / 1000)
 
                 if (answer_key==[]):
-                    y = input("Place your answersheet in position and press 'Y'")
+                    y = input("Place your answerkeyin position and press 'Y'")
                     if (y=="Y"):
                         if "bounding_boxes" in res["result"].keys():
                             for bb in res["result"]["bounding_boxes"]:
@@ -112,12 +110,13 @@ def main(argv):
                                 answer_key.append([bb['x'],bb['y']])
                         print(answer_key)
                 else:
-                    if "bounding_boxes" in res["result"].keys():
-                            for bb in res["result"]["bounding_boxes"]:
-                                if ([bb['x'],[bb['y']]] in answer_key):
-                                    point = point + 1
-                print("Marks =", point)
-
+                    y = input("Place your answersheet and press 'Y'")
+                    if (y=="Y"):
+                        if "bounding_boxes" in res["result"].keys():
+                                for bb in res["result"]["bounding_boxes"]:
+                                    if ([bb['x'],[bb['y']]] in answer_key):
+                                        point = point + 1
+                                print("Marks =", point)
 
                 if (show_camera):
                     cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
