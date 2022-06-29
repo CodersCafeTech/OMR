@@ -115,7 +115,7 @@ def main(argv):
                                 img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
                                 answer_key.append([bb['x'],bb['y']])
                         print(answer_key)
-                        continue
+                        break
                 else:
                     y = input("Place your answersheet and press 'Y'")
                     if (y=="Y"):
@@ -125,9 +125,9 @@ def main(argv):
                                     print([bb['x'],bb['y']])
                                     point = point + 1
                             print("Marks =", point)
-                            continue
+                            break
                 next_frame = now() + 100
-        finally:
+        except:
             if (runner):
                 runner.stop()
 
