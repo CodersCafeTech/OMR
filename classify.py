@@ -8,7 +8,6 @@ import time
 from edge_impulse_linux.image import ImageImpulseRunner
 
 answer_key=[]
-point = 0
 runner = None
 # if you don't want to see a camera preview, set this to False
 show_camera = True
@@ -99,7 +98,7 @@ def main(argv):
             for res, img in runner.classifier(videoCaptureDeviceId):
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
-
+                point = 0     
                 if (answer_key==[]):
                     y = input("Place your answerkeyin position and press 'Y'")
                     if (y=="Y"):
