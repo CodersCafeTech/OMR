@@ -98,9 +98,10 @@ def main(argv):
             for res, img in runner.classifier(videoCaptureDeviceId):
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
-                point = 0     
+                point = 0
+                print("Points Flushed")     
                 if (answer_key==[]):
-                    y = input("Place your answerkeyin position and press 'Y'")
+                    y = input("Place your answerkey in position and press 'Y'")
                     if (y=="Y"):
                         if "bounding_boxes" in res["result"].keys():
                             for bb in res["result"]["bounding_boxes"]:
