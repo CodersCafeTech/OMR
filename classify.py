@@ -83,7 +83,7 @@ def main(argv):
                 videoCaptureDeviceId = int(port_ids[0])
 
             camera = cv2.VideoCapture(videoCaptureDeviceId)
-            '''ret = camera.read()[0]
+            ret = camera.read()[0]
             if ret:
                 backendName = camera.getBackendName()
                 w = camera.get(3)
@@ -91,22 +91,11 @@ def main(argv):
                 #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
                 camera.release()
             else:
-                raise Exception("Couldn't initialize selected camera.")'''
+                raise Exception("Couldn't initialize selected camera.")
 
             next_frame = 0 # limit to ~10 fps here
 
             for res, img in runner.classifier(videoCaptureDeviceId):
-                ret = camera.read()[0]
-                if ret:
-                    backendName = camera.getBackendName()
-                    w = camera.get(3)
-                    h = camera.get(4)
-                    #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
-                    camera.release()
-                else:
-                    raise Exception("Couldn't initialize selected camera.")
-
-                next_frame = 0 # limit to ~10 fps here
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
 
@@ -126,6 +115,7 @@ def main(argv):
                                 img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
                                 answer_key.append([bb['x'],bb['y']])
                         print(answer_key)
+                        break
                 else:
                     y = input("Place your answersheet and press 'Y'")
                     if (y=="Y"):
@@ -135,6 +125,7 @@ def main(argv):
                                     print([bb['x'],bb['y']])
                                     point = point + 1
                             print("Marks =", point)
+                            break
 
                 next_frame = now() + 100
         finally:
