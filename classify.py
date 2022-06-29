@@ -9,6 +9,8 @@ import signal
 import time
 from edge_impulse_linux.image import ImageImpulseRunner
 
+answer_key=[]
+point = 0
 runner = None
 # if you don't want to see a camera preview, set this to False
 show_camera = True
@@ -100,17 +102,21 @@ def main(argv):
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
 
-                answer_key=[]
-
-                y = input("Place your answersheet in position and press 'Y'")
-                if (y=="Y"):
+                if (answer_key==[]):
+                    y = input("Place your answersheet in position and press 'Y'")
+                    if (y=="Y"):
+                        if "bounding_boxes" in res["result"].keys():
+                            for bb in res["result"]["bounding_boxes"]:
+                                #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
+                                img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
+                                answer_key.append([bb['x'],bb['y']])
+                        print(answer_key)
+                else:
                     if "bounding_boxes" in res["result"].keys():
-                        #print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
-                        for bb in res["result"]["bounding_boxes"]:
-                            #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
-                            #img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
-                            answer_key.append([bb['x'],bb['y']])
-                    print(answer_key)
+                            for bb in res["result"]["bounding_boxes"]:
+                                if ([bb['x'],[bb['y']]] in answer_key):
+                                    point = point + 1
+                print("Marks =", point)
 
 
                 if (show_camera):
