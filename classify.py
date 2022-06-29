@@ -113,11 +113,11 @@ def main(argv):
                     y = input("Place your answersheet and press 'Y'")
                     if (y=="Y"):
                         if "bounding_boxes" in res["result"].keys():
-                                for bb in res["result"]["bounding_boxes"]:
-                                    if ([bb['x'],bb['y']] in answer_key):
-                                        print([bb['x'],bb['y']])
-                                        point = point + 1
-                                print("Marks =", point)
+                            for bb in res["result"]["bounding_boxes"]:
+                                if ([bb['x'],bb['y']] in answer_key):
+                                    print([bb['x'],bb['y']])
+                                    point = point + 1
+                            print("Marks =", point)
 
                 if (show_camera):
                     cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
