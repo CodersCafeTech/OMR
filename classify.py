@@ -83,7 +83,7 @@ def main(argv):
                 videoCaptureDeviceId = int(port_ids[0])
 
             camera = cv2.VideoCapture(videoCaptureDeviceId)
-            ret = camera.read()[0]
+            '''ret = camera.read()[0]
             if ret:
                 backendName = camera.getBackendName()
                 w = camera.get(3)
@@ -91,13 +91,30 @@ def main(argv):
                 #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
                 camera.release()
             else:
-                raise Exception("Couldn't initialize selected camera.")
+                raise Exception("Couldn't initialize selected camera.")'''
 
             next_frame = 0 # limit to ~10 fps here
 
             for res, img in runner.classifier(videoCaptureDeviceId):
+                ret = camera.read()[0]
+                if ret:
+                    backendName = camera.getBackendName()
+                    w = camera.get(3)
+                    h = camera.get(4)
+                    #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
+                    camera.release()
+                else:
+                    raise Exception("Couldn't initialize selected camera.")
+
+                next_frame = 0 # limit to ~10 fps here
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
+
+                if (show_camera):
+                    cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+                    if cv2.waitKey(1) == ord('q'):
+                        break
+
                 point = 0
                 print("Points Flushed")     
                 if (answer_key==[]):
@@ -118,11 +135,6 @@ def main(argv):
                                     print([bb['x'],bb['y']])
                                     point = point + 1
                             print("Marks =", point)
-
-                if (show_camera):
-                    cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
-                    if cv2.waitKey(1) == ord('q'):
-                        break
 
                 next_frame = now() + 100
         finally:
