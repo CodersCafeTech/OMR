@@ -14,10 +14,10 @@ To make the FOMR flexible, we use a marked answer key to identify the answers. T
 
 To read the marks,
 1. Place your answer key and read the answers.
-2. Identify position of the answers in terms of co-ordinates using FOMO
+2. Identify the position of answers in terms of co-ordinates using FOMO
 3. Now place the answer sheet and read the marked options
-4. Identify position of the markings in terms of co-ordinates
-5. Compare the position of each marking to the the postion of answers in the answer key
+4. Identify the position of markings in terms of co-ordinates
+5. Compare the position of each marking to the postion of answers in the answer key
 6. For each correct detection, add the marks
 7. Print the final marks
 
