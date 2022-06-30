@@ -18,7 +18,7 @@ def now():
 
 def get_webcams():
     port_ids = []
-    for port in range(5):
+    for port in range(1):
         #print("Looking for a camera in port %s:" %port)
         camera = cv2.VideoCapture(port)
         if camera.isOpened():
