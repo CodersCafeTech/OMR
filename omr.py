@@ -113,7 +113,7 @@ def main(argv):
                                     break
                                 else:
                                     answer_key = []
-                                    continue
+                                    break
                         #next_frame = now() + 100
         else:
             with ImageImpulseRunner(modelfile) as runner:
