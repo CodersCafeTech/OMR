@@ -108,11 +108,7 @@ def main(argv):
                                     img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
                                     answer_key.append([bb['x'],bb['y']])
                                 print(answer_key)
-                                y = input("Is answerkey correct? Y/N")
-                                if(y=="Y"):
-                                    break
-                                else:
-                                    print()
+                                break
                         next_frame = now() + 100
         else:
             with ImageImpulseRunner(modelfile) as runner:
