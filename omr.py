@@ -111,7 +111,6 @@ def main(argv):
                                 break
 
                         next_frame = now() + 100
-                    print("Bye")
         else:
             with ImageImpulseRunner(modelfile) as runner:
                     model_info = runner.init()
