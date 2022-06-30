@@ -71,7 +71,7 @@ def main(argv):
     os.system('clear')
     answer_key=[]
 
-    valid_color = ['red', 'green', 'yellow', 'blue', 'cyan', 'white']
+    valid_color = ['red', 'green', 'yellow', 'white']
     random_choice = randint(0,6)
     color = valid_color[random_choice]  
     result = pyfiglet.figlet_format("F - OMR", )
@@ -165,7 +165,7 @@ def main(argv):
                                     if ([bb['x'],bb['y']] in answer_key):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
-                        print("Marks:", point)
+                        print(colored("Marks:", point), 'green')
                         break
 
 
