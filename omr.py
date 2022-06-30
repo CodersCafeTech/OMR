@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
+import imp
 import cv2
 import os
 import sys, getopt
 import signal
 import time
 from edge_impulse_linux.image import ImageImpulseRunner
+
+import pyfiglet
+from termcolor import colored
+from random import randint, random
 
 runner = None
 # if you don't want to see a camera preview, set this to False
@@ -66,6 +71,13 @@ def main(argv):
 
     os.system('clear')
     answer_key=[]
+
+    valid_color = ['red', 'green', 'yellow', 'blue', 'cyan', 'white']
+    random_choice = randint[0,6]
+    color = valid_color[random_choice]  
+    result = pyfiglet.figlet_format("F - OMR", )
+    colored_result = colored(result, color)
+    print(colored_result)
 
     while True:
         if (answer_key==[]):
