@@ -114,6 +114,8 @@ def main(argv):
                     print("Bye")
         else:
             with ImageImpulseRunner(modelfile) as runner:
+                y = input("Place your answersheet and press 'Y'")
+                if (y=="Y"):
                     model_info = runner.init()
                     #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
                     labels = model_info['model_parameters']['labels']
@@ -145,13 +147,12 @@ def main(argv):
                             time.sleep((next_frame - now()) / 1000)
 
                         point = 0
-                        y = input("Place your answersheet and press 'Y'")
-                        if (y=="Y"):
-                            if "bounding_boxes" in res["result"].keys():
-                                for bb in res["result"]["bounding_boxes"]:
-                                    if ([bb['x'],bb['y']] in answer_key):
-                                        print([bb['x'],bb['y']])
-                                        point = point + 1
+                        
+                        if "bounding_boxes" in res["result"].keys():
+                            for bb in res["result"]["bounding_boxes"]:
+                                if ([bb['x'],bb['y']] in answer_key):
+                                    print([bb['x'],bb['y']])
+                                    point = point + 1
                             print("Marks =", point)
                         next_frame = now() + 100
 
