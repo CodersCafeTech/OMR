@@ -21,10 +21,9 @@ To read the marks,
 6. For each correct detection, add the marks
 7. Print the final marks
 
-![Answer_Key.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key.jpg)
-
-{:.image-caption}
-*Answer Key*
+|![Answer_Key.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key.jpg)|
+|:--:| 
+| *Answer Key* |
 
 
 
