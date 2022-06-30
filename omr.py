@@ -147,7 +147,6 @@ def main(argv):
                             time.sleep((next_frame - now()) / 1000)
 
                         point = 0
-                        
                         if "bounding_boxes" in res["result"].keys():
                             for bb in res["result"]["bounding_boxes"]:
                                 if ([bb['x'],bb['y']] in answer_key):
