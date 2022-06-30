@@ -68,7 +68,8 @@ def main(argv):
     #print('MODEL: ' + modelfile)
 
     with ImageImpulseRunner(modelfile) as runner:
-            try:
+        try:
+            while True:
                 model_info = runner.init()
                 #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
                 labels = model_info['model_parameters']['labels']
@@ -81,7 +82,6 @@ def main(argv):
                     if len(args)<= 1 and len(port_ids)> 1:
                         raise Exception("Multiple cameras found. Add the camera port ID as a second argument to use to this script")
                     videoCaptureDeviceId = int(port_ids[0])
-                while True:
                     camera = cv2.VideoCapture(videoCaptureDeviceId)
                     ret = camera.read()[0]
                     if ret:
@@ -127,9 +127,9 @@ def main(argv):
                                     print("Marks =", point)
                                     break
                         next_frame = now() + 100
-            finally:
-                if (runner):
-                    runner.stop()
+        finally:
+            if (runner):
+                runner.stop()
 
 if __name__ == "__main__":
    main(sys.argv[1:])
