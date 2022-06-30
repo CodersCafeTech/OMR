@@ -69,7 +69,6 @@ def main(argv):
 
     with ImageImpulseRunner(modelfile) as runner:
         try:
-            while True:
                 model_info = runner.init()
                 #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
                 labels = model_info['model_parameters']['labels']
@@ -96,36 +95,37 @@ def main(argv):
                     next_frame = 0 # limit to ~10 fps here
 
                     for res, img in runner.classifier(videoCaptureDeviceId):
-                        if (next_frame > now()):
-                            time.sleep((next_frame - now()) / 1000)
+                        while True:
+                            if (next_frame > now()):
+                                time.sleep((next_frame - now()) / 1000)
 
-                        if (show_camera):
-                            cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
-                            if cv2.waitKey(1) == ord('q'):
-                                break
-
-                        point = 0
-                        print("Points Flushed")     
-                        if (answer_key==[]):
-                            y = input("Place your answerkey in position and press 'Y'")
-                            if (y=="Y"):
-                                if "bounding_boxes" in res["result"].keys():
-                                    for bb in res["result"]["bounding_boxes"]:
-                                        #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
-                                        img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
-                                        answer_key.append([bb['x'],bb['y']])
-                                print(answer_key)
-                                break
-                        else:
-                            y = input("Place your answersheet and press 'Y'")
-                            if (y=="Y"):
-                                if "bounding_boxes" in res["result"].keys():
-                                    for bb in res["result"]["bounding_boxes"]:
-                                        if ([bb['x'],bb['y']] in answer_key):
-                                            print([bb['x'],bb['y']])
-                                            point = point + 1
-                                    print("Marks =", point)
+                            if (show_camera):
+                                cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+                                if cv2.waitKey(1) == ord('q'):
                                     break
+
+                            point = 0
+                            print("Points Flushed")     
+                            if (answer_key==[]):
+                                y = input("Place your answerkey in position and press 'Y'")
+                                if (y=="Y"):
+                                    if "bounding_boxes" in res["result"].keys():
+                                        for bb in res["result"]["bounding_boxes"]:
+                                            #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
+                                            img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
+                                            answer_key.append([bb['x'],bb['y']])
+                                    print(answer_key)
+                                    break
+                            else:
+                                y = input("Place your answersheet and press 'Y'")
+                                if (y=="Y"):
+                                    if "bounding_boxes" in res["result"].keys():
+                                        for bb in res["result"]["bounding_boxes"]:
+                                            if ([bb['x'],bb['y']] in answer_key):
+                                                print([bb['x'],bb['y']])
+                                                point = point + 1
+                                        print("Marks =", point)
+                                        break
                         next_frame = now() + 100
         finally:
             if (runner):
