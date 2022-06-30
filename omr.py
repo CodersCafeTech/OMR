@@ -155,6 +155,10 @@ def main(argv):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
                         print("Marks:", point)
+                        if (show_camera):
+                                cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+                                if cv2.waitKey(1) == ord('q'):
+                                    break
                         break
 
 
