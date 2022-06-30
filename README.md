@@ -23,7 +23,7 @@ To read the marks,
 
 |![Answer_Key.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key.jpg)|
 |:--:| 
-| *Answer Key* |
+| **Answer Key** |
 
 
 
