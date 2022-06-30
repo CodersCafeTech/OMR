@@ -165,7 +165,7 @@ def main(argv):
                                     if ([bb['x'],bb['y']] in answer_key):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
-                        print(colored("Marks:", point), 'green')
+                        print("Marks:", point)
                         break
 
 
