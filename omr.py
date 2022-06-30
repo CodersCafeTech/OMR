@@ -66,97 +66,94 @@ def main(argv):
     modelfile = os.path.join(dir_path, model)
 
     #print('MODEL: ' + modelfile)
-    if (answer_key==[]):
-        with ImageImpulseRunner(modelfile) as runner:
-                model_info = runner.init()
-                #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
-                labels = model_info['model_parameters']['labels']
-                if len(args)>= 2:
-                    videoCaptureDeviceId = int(args[1])
-                else:
-                    port_ids = get_webcams()
-                    if len(port_ids) == 0:
-                        raise Exception('Cannot find any webcams')
-                    if len(args)<= 1 and len(port_ids)> 1:
-                        raise Exception("Multiple cameras found. Add the camera port ID as a second argument to use to this script")
-                    videoCaptureDeviceId = int(port_ids[0])
+    while True:
+        if (answer_key==[]):
+            with ImageImpulseRunner(modelfile) as runner:
+                    model_info = runner.init()
+                    #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
+                    labels = model_info['model_parameters']['labels']
+                    if len(args)>= 2:
+                        videoCaptureDeviceId = int(args[1])
+                    else:
+                        port_ids = get_webcams()
+                        if len(port_ids) == 0:
+                            raise Exception('Cannot find any webcams')
+                        if len(args)<= 1 and len(port_ids)> 1:
+                            raise Exception("Multiple cameras found. Add the camera port ID as a second argument to use to this script")
+                        videoCaptureDeviceId = int(port_ids[0])
 
-                camera = cv2.VideoCapture(videoCaptureDeviceId)
-                ret = camera.read()[0]
-                if ret:
-                    backendName = camera.getBackendName()
-                    w = camera.get(3)
-                    h = camera.get(4)
-                    #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
-                    camera.release()
-                else:
-                    raise Exception("Couldn't initialize selected camera.")
+                    camera = cv2.VideoCapture(videoCaptureDeviceId)
+                    ret = camera.read()[0]
+                    if ret:
+                        backendName = camera.getBackendName()
+                        w = camera.get(3)
+                        h = camera.get(4)
+                        #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
+                        camera.release()
+                    else:
+                        raise Exception("Couldn't initialize selected camera.")
 
-                next_frame = 0 # limit to ~10 fps here
+                    next_frame = 0 # limit to ~10 fps here
 
-                for res, img in runner.classifier(videoCaptureDeviceId):
-                    if (next_frame > now()):
-                        time.sleep((next_frame - now()) / 1000)
+                    for res, img in runner.classifier(videoCaptureDeviceId):
+                        if (next_frame > now()):
+                            time.sleep((next_frame - now()) / 1000)
 
-                    y = input("Place your answerkey in position and press 'Y'")
-                    if (y=="Y"):
-                        if "bounding_boxes" in res["result"].keys():
-                            print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
-                            for bb in res["result"]["bounding_boxes"]:
-                                print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
-                                img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
-                                answer_key.append([bb['x'],bb['y']])
-                            print(answer_key)
-                            break
+                        y = input("Place your answerkey in position and press 'Y'")
+                        if (y=="Y"):
+                            if "bounding_boxes" in res["result"].keys():
+                                print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
+                                for bb in res["result"]["bounding_boxes"]:
+                                    print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
+                                    img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
+                                    answer_key.append([bb['x'],bb['y']])
+                                print(answer_key)
+                                break
 
-                    next_frame = now() + 100
-    else:
-        with ImageImpulseRunner(modelfile) as runner:
-            try:
-                print
-                model_info = runner.init()
-                #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
-                labels = model_info['model_parameters']['labels']
-                if len(args)>= 2:
-                    videoCaptureDeviceId = int(args[1])
-                else:
-                    port_ids = get_webcams()
-                    if len(port_ids) == 0:
-                        raise Exception('Cannot find any webcams')
-                    if len(args)<= 1 and len(port_ids)> 1:
-                        raise Exception("Multiple cameras found. Add the camera port ID as a second argument to use to this script")
-                    videoCaptureDeviceId = int(port_ids[0])
+                        next_frame = now() + 100
+                    print("Bye")
+        else:
+            with ImageImpulseRunner(modelfile) as runner:
+                    model_info = runner.init()
+                    #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
+                    labels = model_info['model_parameters']['labels']
+                    if len(args)>= 2:
+                        videoCaptureDeviceId = int(args[1])
+                    else:
+                        port_ids = get_webcams()
+                        if len(port_ids) == 0:
+                            raise Exception('Cannot find any webcams')
+                        if len(args)<= 1 and len(port_ids)> 1:
+                            raise Exception("Multiple cameras found. Add the camera port ID as a second argument to use to this script")
+                        videoCaptureDeviceId = int(port_ids[0])
 
-                camera = cv2.VideoCapture(videoCaptureDeviceId)
-                ret = camera.read()[0]
-                if ret:
-                    backendName = camera.getBackendName()
-                    w = camera.get(3)
-                    h = camera.get(4)
-                    #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
-                    camera.release()
-                else:
-                    raise Exception("Couldn't initialize selected camera.")
+                    camera = cv2.VideoCapture(videoCaptureDeviceId)
+                    ret = camera.read()[0]
+                    if ret:
+                        backendName = camera.getBackendName()
+                        w = camera.get(3)
+                        h = camera.get(4)
+                        #print("Camera %s (%s x %s) in port %s selected." %(backendName,h,w, videoCaptureDeviceId))
+                        camera.release()
+                    else:
+                        raise Exception("Couldn't initialize selected camera.")
 
-                next_frame = 0 # limit to ~10 fps here
+                    next_frame = 0 # limit to ~10 fps here
 
-                for res, img in runner.classifier(videoCaptureDeviceId):
-                    if (next_frame > now()):
-                        time.sleep((next_frame - now()) / 1000)
+                    for res, img in runner.classifier(videoCaptureDeviceId):
+                        if (next_frame > now()):
+                            time.sleep((next_frame - now()) / 1000)
 
-                    point = 0
-                    y = input("Place your answersheet and press 'Y'")
-                    if (y=="Y"):
-                        if "bounding_boxes" in res["result"].keys():
-                           for bb in res["result"]["bounding_boxes"]:
-                                if ([bb['x'],bb['y']] in answer_key):
-                                    print([bb['x'],bb['y']])
-                                    point = point + 1
-                        print("Marks =", point)
-                    next_frame = now() + 100
-            finally:
-                if (runner):
-                    runner.stop()
+                        point = 0
+                        y = input("Place your answersheet and press 'Y'")
+                        if (y=="Y"):
+                            if "bounding_boxes" in res["result"].keys():
+                                for bb in res["result"]["bounding_boxes"]:
+                                    if ([bb['x'],bb['y']] in answer_key):
+                                        print([bb['x'],bb['y']])
+                                        point = point + 1
+                            print("Marks =", point)
+                        next_frame = now() + 100
 
 
 if __name__ == "__main__":
