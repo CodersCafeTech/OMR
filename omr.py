@@ -66,7 +66,7 @@ def main(argv):
 
     os.system('clear')
     answer_key=[]
-    
+
     while True:
         if (answer_key==[]):
             with ImageImpulseRunner(modelfile) as runner:
@@ -117,7 +117,7 @@ def main(argv):
                         #next_frame = now() + 100
         else:
             with ImageImpulseRunner(modelfile) as runner:
-                y = input("Place your answersheet in position and press 'Y'")
+                y = input("Place your answersheet in position and press 'Y' : ")
                 if (y=="Y"):
                     model_info = runner.init()
                     labels = model_info['model_parameters']['labels']
