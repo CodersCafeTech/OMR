@@ -72,7 +72,7 @@ def main(argv):
     answer_key=[]
 
     valid_color = ['red', 'green', 'yellow', 'blue', 'cyan', 'white']
-    random_choice = randint(6)
+    random_choice = randint(0,6)
     color = valid_color[random_choice]  
     result = pyfiglet.figlet_format("F - OMR", )
     colored_result = colored(result, color)
