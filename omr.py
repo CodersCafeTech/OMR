@@ -145,15 +145,14 @@ def main(argv):
                             time.sleep((next_frame - now()) / 1000)
 
                         point = 0
-                        y = input("Place your answersheet and press 'Y'")
+                        y = input("Place your answerkey in position and press 'Y'")
                         if (y=="Y"):
                             if "bounding_boxes" in res["result"].keys():
                                 for bb in res["result"]["bounding_boxes"]:
                                     if ([bb['x'],bb['y']] in answer_key):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
-                                print("Marks =", point)
-                        next_frame = now() + 100
+                            print("Marks:", point)
 
 
 if __name__ == "__main__":
