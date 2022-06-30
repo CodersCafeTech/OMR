@@ -112,8 +112,9 @@ def main(argv):
                                 if(y=="Y"):
                                     break
                                 else:
-                                    print()
-                        next_frame = now() + 100
+                                    answer_key = []
+                                    continue
+                        #next_frame = now() + 100
         else:
             with ImageImpulseRunner(modelfile) as runner:
                 y = input("Place your answersheet in position and press 'Y'")
@@ -160,10 +161,6 @@ def main(argv):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
                         print("Marks:", point)
-                        if (show_camera):
-                                cv2.imshow('edgeimpulse', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
-                                if cv2.waitKey(1) == ord('q'):
-                                    break
                         break
 
 
