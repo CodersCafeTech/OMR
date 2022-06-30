@@ -8,7 +8,6 @@ import time
 from edge_impulse_linux.image import ImageImpulseRunner
 
 runner = None
-answer_key=[]
 # if you don't want to see a camera preview, set this to False
 show_camera = True
 if (sys.platform == 'linux' and not os.environ.get('DISPLAY')):
@@ -66,6 +65,7 @@ def main(argv):
     modelfile = os.path.join(dir_path, model)
 
     #print('MODEL: ' + modelfile)
+    answer_key=[]
     while True:
         if (answer_key==[]):
             with ImageImpulseRunner(modelfile) as runner:
