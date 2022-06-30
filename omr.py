@@ -68,7 +68,6 @@ def main(argv):
     #print('MODEL: ' + modelfile)
     if (answer_key==[]):
         with ImageImpulseRunner(modelfile) as runner:
-            try:
                 model_info = runner.init()
                 #print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
                 labels = model_info['model_parameters']['labels']
@@ -102,7 +101,7 @@ def main(argv):
                     y = input("Place your answerkey in position and press 'Y'")
                     if (y=="Y"):
                         if "bounding_boxes" in res["result"].keys():
-                            #print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
+                            print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
                             for bb in res["result"]["bounding_boxes"]:
                                 print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
                                 img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
@@ -110,9 +109,6 @@ def main(argv):
                             print(answer_key)
 
                     next_frame = now() + 100
-            finally:
-                if (runner):
-                    runner.stop()
     else:
         with ImageImpulseRunner(modelfile) as runner:
             try:
