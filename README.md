@@ -21,9 +21,29 @@ To read the marks,
 6. For each correct detection, add the marks
 7. Print the final marks
 
-|![Answer_Key.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key.jpg){:height="36px" width="36px"}|
+|![Answer_Key.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key.jpg)|
 |:--:| 
 | **Answer Key** |
+
+|![Answer_Key_Coordinates.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Key_Coordinates.jpg)|
+|:--:| 
+| **Answer Key With Coordinates** |
+
+|![Answer_Sheet.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Sheet.jpg)|
+|:--:| 
+| **Answer Sheet** |
+
+|![Answer_Sheet_Coordinates.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Answer_Sheet_Coordinates.jpg)|
+|:--:| 
+| **Answer Sheet With Coordinates** |
+
+|![Final_Marks.jpg](https://github.com/CodersCafeTech/OMR/blob/main/assets/Final_Marks.jpg)|
+|:--:| 
+| **Final Marks** |
+
+
+
+
 
 
 
