@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import imp
 import cv2
 import os
 import sys, getopt
