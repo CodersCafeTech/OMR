@@ -41,7 +41,8 @@ To read the marks,
 |:--:| 
 | **Final Marks** |
 
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
+<img src = "https://github.com/CodersCafeTech/OMR/blob/main/assets/Final_Marks.jpg" width="300px" height="300px">
+
 
 
 
