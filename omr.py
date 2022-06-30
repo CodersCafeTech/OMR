@@ -151,6 +151,7 @@ def main(argv):
                         point = 0
                         if "bounding_boxes" in res["result"].keys():
                                 for bb in res["result"]["bounding_boxes"]:
+                                    img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (255, 0, 0), 1)
                                     if ([bb['x'],bb['y']] in answer_key):
                                         print([bb['x'],bb['y']])
                                         point = point + 1
