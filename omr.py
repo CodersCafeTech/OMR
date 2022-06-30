@@ -144,7 +144,7 @@ def main(argv):
                             time.sleep((next_frame - now()) / 1000)
 
                         point = 0
-                        y = input("Place your answerkey in position and press 'Y'")
+                        y = input("Place your answersheet in position and press 'Y'")
                         if (y=="Y"):
                             if "bounding_boxes" in res["result"].keys():
                                 for bb in res["result"]["bounding_boxes"]:
